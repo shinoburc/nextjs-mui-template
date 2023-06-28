@@ -1,5 +1,3 @@
-// next-auth の signOut はクライアントサイドでのみ動作するため use client を付けている。
-
 import Image from 'next/image';
 import styles from './page.module.css';
 import Link from 'next/link';

@@ -90,43 +90,39 @@ export default function UserForm(props: Props) {
     <>
       <span className='error'>{postError}</span>
       <form onSubmit={onSubmit}>
-        <FormControl fullWidth>
+        <FormControl fullWidth error={'name' in errors}>
           <TextField
             label='Name'
             variant='standard'
-            error={'name' in errors}
             helperText={errors.name?.message}
             {...register('name')}
           />
         </FormControl>
-        <FormControl fullWidth>
+        <FormControl fullWidth error={'email' in errors}>
           <TextField
             label='Email'
             variant='standard'
             required
-            error={'email' in errors}
             helperText={errors.email?.message}
             {...register('email')}
           />
         </FormControl>
-        <FormControl fullWidth>
+        <FormControl fullWidth error={'password' in errors}>
           <TextField
             label='Password'
             variant='standard'
             type='password'
             required
-            error={'password' in errors}
             helperText={errors.password?.message}
             {...register('password')}
           />
         </FormControl>
-        <FormControl fullWidth>
+        <FormControl fullWidth error={'roleId' in errors}>
           <InputLabel>Role</InputLabel>
           <Select
             label='role'
             required
             defaultValue={user ? user.roleId : ''}
-            error={'roleId' in errors}
             {...register('roleId')}
           >
             {roles?.map((role) => {
@@ -139,13 +135,12 @@ export default function UserForm(props: Props) {
           </Select>
           <FormHelperText error={true}>{errors.roleId?.message}</FormHelperText>
         </FormControl>
-        <FormControl fullWidth>
+        <FormControl fullWidth error={'departmentId' in errors}>
           <InputLabel>Department</InputLabel>
           <Select
             label='department'
             required
             defaultValue={user ? user.departmentId : ''}
-            error={'departmentId' in errors}
             {...register('departmentId')}
           >
             {departments?.map((department) => {
