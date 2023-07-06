@@ -1,5 +1,9 @@
 import { prisma } from '@/app/_utils/prismaSingleton';
-import { User } from '@prisma/client';
+import { Prisma, User } from '@prisma/client';
+
+export type UserWithRoleDepartment = Prisma.PromiseReturnType<
+  typeof UserRepository.findUnique
+>;
 
 export namespace UserRepository {
   export async function findMany() {
@@ -13,6 +17,10 @@ export namespace UserRepository {
 
   export async function findUnique(id: string) {
     return await prisma.user.findUnique({
+      include: {
+        role: true,
+        department: true,
+      },
       where: {
         id: id,
       },

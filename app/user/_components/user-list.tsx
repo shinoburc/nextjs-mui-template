@@ -27,7 +27,7 @@ type Props = {
 
 export default function UserList(props: Props) {
   const users = props.users;
-  
+
   const router = useRouter();
 
   const onDelete = async (id: string) => {

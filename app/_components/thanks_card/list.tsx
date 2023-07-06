@@ -12,7 +12,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-import type { ThanksCardWithFromToList } from '@/app/_repositories/ThanksCard';
+import type { ThanksCardWithFromTo } from '@/app/_repositories/ThanksCard';
 
 // reference:
 // https://www.prisma.io/docs/concepts/components/prisma-client/advanced-type-safety/operating-against-partial-structures-of-model-types#problem-using-variations-of-the-generated-model-type
@@ -36,7 +36,7 @@ type ThanksCardWithFromTo = Prisma.ThanksCardGetPayload<{
 */
 
 type Props = {
-  thanks_cards: ThanksCardWithFromToList;
+  thanks_cards: ThanksCardWithFromTo[];
 };
 
 function ThanksCardList(props: Props) {

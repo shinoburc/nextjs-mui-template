@@ -5,6 +5,6 @@ import { RoleRepository } from '@/app/_repositories/Role';
 export default async function UserCreate() {
   const roles = await RoleRepository.findMany();
   const departments = await DepartmentRepository.findMany();
-  
+
   return <UserForm departments={departments} roles={roles} onSuccessUrl='/user/' />;
-};
+}
