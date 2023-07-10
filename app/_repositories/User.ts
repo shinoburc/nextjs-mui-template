@@ -1,8 +1,12 @@
 import { prisma } from '@/app/_utils/prismaSingleton';
-import { Prisma, User } from '@prisma/client';
+import type { Prisma } from '@prisma/client';
+import type { User as _User } from '@prisma/client';
 
-export type UserWithRoleDepartment = Prisma.PromiseReturnType<
-  typeof UserRepository.findUnique
+export type User = _User;
+
+export type UserWithRoleDepartment = Exclude<
+  Prisma.PromiseReturnType<typeof UserRepository.findUnique>,
+  null
 >;
 
 export namespace UserRepository {

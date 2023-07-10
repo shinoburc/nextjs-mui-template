@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { Prisma, Department } from '@prisma/client';
 
 /* ライブラリ Material-UI が提供するコンポーネントの import */
 import TableContainer from '@mui/material/TableContainer';

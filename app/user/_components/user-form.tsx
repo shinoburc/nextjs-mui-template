@@ -14,10 +14,13 @@ import FormHelperText from '@mui/material/FormHelperText';
 import Button from '@mui/material/Button';
 
 import { userFormSchema, UserFormData } from '@/app/_formSchema/user';
-import { Department, Role, User } from '@prisma/client';
+
+import type { UserWithRoleDepartment } from '@/app/_repositories/User';
+import type { Role } from '@/app/_repositories/Role';
+import type { Department } from '@/app/_repositories/Department';
 
 type Props = {
-  user?: User | null;
+  user?: UserWithRoleDepartment | null;
   roles: Role[];
   departments: Department[];
   onSuccessUrl: string;

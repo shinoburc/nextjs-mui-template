@@ -1,12 +1,10 @@
 import { prisma } from '@/app/_utils/prismaSingleton';
-import { Prisma } from '@prisma/client';
+import type { Prisma } from '@prisma/client';
 
 // ThanksCardRepository.findUniq(ThanksCardとUser(from, to)をjoinした結果) が返すリストの型から
 // Promise を取り省いた型を export する
 export type ThanksCardWithFromTo = Exclude<
-  Prisma.PromiseReturnType<
-    typeof ThanksCardRepository.findUnique
-  >,
+  Prisma.PromiseReturnType<typeof ThanksCardRepository.findUnique>,
   null
 >;
 

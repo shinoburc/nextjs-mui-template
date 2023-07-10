@@ -12,9 +12,15 @@ import TableRow from '@mui/material/TableRow';
 /* icons */
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
-import { Prisma } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 
+import type { UserWithRoleDepartment } from '@/app/_repositories/User';
+
+type Props = {
+  users: UserWithRoleDepartment[];
+};
+
+/*
 type User = Prisma.UserGetPayload<{
   include: {
     role: true;
@@ -24,6 +30,7 @@ type User = Prisma.UserGetPayload<{
 type Props = {
   users: User[];
 };
+*/
 
 export default function UserList(props: Props) {
   const users = props.users;
