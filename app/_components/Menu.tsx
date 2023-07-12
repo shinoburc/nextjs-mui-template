@@ -41,7 +41,7 @@ export const mainMenu = (
       <ListItemIcon>
         <LayersIcon />
       </ListItemIcon>
-      <ListItemText primary='Integrations' />
+      <ListItemText primary='Menu' />
     </ListItemButton>
   </React.Fragment>
 );
@@ -49,25 +49,25 @@ export const mainMenu = (
 export const secondaryMenu = (
   <React.Fragment>
     <ListSubheader component='div' inset>
-      Saved reports
+      Secondary Menu
     </ListSubheader>
     <ListItemButton>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary='Current month' />
+      <ListItemText primary='Secondary Menu 1' />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary='Last quarter' />
+      <ListItemText primary='Secondary Menu 2' />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary='Year-end sale' />
+      <ListItemText primary='Secondary Menu 3' />
     </ListItemButton>
   </React.Fragment>
 );
