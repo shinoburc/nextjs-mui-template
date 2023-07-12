@@ -29,12 +29,12 @@ export const mainMenu = (
         <ListItemText primary='User' />
       </ListItemButton>
     </Link>
-    <Link href='/parts' passHref>
+    <Link href='/header-items-form' passHref>
       <ListItemButton>
         <ListItemIcon>
           <BarChartIcon />
         </ListItemIcon>
-        <ListItemText primary='Parts Order' />
+        <ListItemText primary='Header Items Form' />
       </ListItemButton>
     </Link>
     <ListItemButton>

@@ -193,31 +193,11 @@ export default function Layout({ children }: LayoutProps) {
                     display: 'flex',
                     flexDirection: 'column',
                     height: 600,
+                    overflow: 'auto', // for scrollable
                   }}
                 >
                   {children}
                   {/*<Chart />*/}
-                </Paper>
-              </Grid>
-              {/* Recent Deposits */}
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 140,
-                  }}
-                >
-                  <span>deposits</span>
-                  {/*<Deposits />*/}
-                </Paper>
-              </Grid>
-              {/* Recent Orders */}
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <span>orders</span>
-                  {/*<Orders />*/}
                 </Paper>
               </Grid>
             </Grid>
