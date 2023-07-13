@@ -1,8 +1,17 @@
 'use client';
 
-import { Box, Button, Grid, IconButton } from '@mui/material';
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogTitle,
+  Grid,
+  IconButton,
+  Paper,
+  TextField,
+} from '@mui/material';
 
-import { AddCircle } from '@mui/icons-material';
+import { AddCircle, EditNote } from '@mui/icons-material';
 
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 
@@ -12,8 +21,11 @@ import { HeaderForm } from './header-form';
 import { ItemsFormLabel } from './items-form-label';
 import { ItemsForm } from './items-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useState } from 'react';
 
 export function FormMain() {
+  const [dialogIsOpen, setDialogIsOpen] = useState(false);
+
   const methods = useForm({
     resolver: yupResolver(testFormSchema),
     defaultValues: {
@@ -68,12 +80,46 @@ export function FormMain() {
                 <AddCircle />
               </IconButton>
             </Grid>
-            <Grid item xs={1}>
+            <Grid item xs={1.5}>
               <Button type='submit' variant='contained' color='primary'>
                 Submit
               </Button>
             </Grid>
+            <Grid item xs={1.5}>
+              <Button
+                variant='contained'
+                color='primary'
+                startIcon={<EditNote />}
+                onClick={() => {
+                  setDialogIsOpen(true);
+                }}
+              >
+                メモ
+              </Button>
+            </Grid>
           </Grid>
+          <Dialog
+            onClose={() => {
+              setDialogIsOpen(false);
+            }}
+            open={dialogIsOpen}
+          >
+            <DialogTitle>メモ</DialogTitle>
+            <Paper
+              sx={{
+                p: 2,
+                display: 'flex',
+                flexDirection: 'column',
+                height: 300,
+                overflow: 'auto', // for scrollable
+              }}
+            >
+              <TextField label='Multiline' multiline rows={10} />
+            </Paper>
+            <Button type='submit' variant='contained' color='primary'>
+              SAVE
+            </Button>
+          </Dialog>
         </Box>
       </form>
     </FormProvider>
