@@ -2,16 +2,10 @@ import Image from 'next/image';
 import styles from './page.module.css';
 import Link from 'next/link';
 
-import { ThanksCardRepository } from '@/app/_repositories/ThanksCard';
-import ThanksCardList from '@/app/_components/thanks_card/list';
-
-export default async function Home() {
-  const thanks_cards = await ThanksCardRepository.findMany();
-
+export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.description}>
-        <ThanksCardList thanks_cards={thanks_cards} />
         <p>
           Get started by editing&nbsp;
           <code className={styles.code}>app/page.tsx</code>

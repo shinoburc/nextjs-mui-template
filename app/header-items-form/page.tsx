@@ -1,6 +1,6 @@
 import { FormMain } from './_components/form-main';
 
-export default async function HeaderItemsFormPage() {
+export default function HeaderItemsFormPage() {
   return (
     <>
       <FormMain />
