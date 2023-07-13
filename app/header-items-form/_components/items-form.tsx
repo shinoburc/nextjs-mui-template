@@ -60,38 +60,22 @@ export function ItemsForm({ field, index, remove }: Props) {
         </Grid>
         <Grid item xs={1.0}>
           <FormControl fullWidth>
-            <TextField
-              label='_'
-              variant='standard'
-              type='text'
-            />
+            <TextField label='_' variant='standard' type='text' />
           </FormControl>
         </Grid>
         <Grid item xs={1.0}>
           <FormControl fullWidth>
-            <TextField
-              label='_'
-              variant='standard'
-              type='text'
-            />
+            <TextField label='_' variant='standard' type='text' />
           </FormControl>
         </Grid>
         <Grid item xs={1.0}>
           <FormControl fullWidth>
-            <TextField
-              label='_'
-              variant='standard'
-              type='text'
-            />
+            <TextField label='_' variant='standard' type='text' />
           </FormControl>
         </Grid>
         <Grid item xs={1.0}>
           <FormControl fullWidth>
-            <TextField
-              label='_'
-              variant='standard'
-              type='text'
-            />
+            <TextField label='_' variant='standard' type='text' />
           </FormControl>
         </Grid>
         <Grid item xs={0.5}>

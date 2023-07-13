@@ -18,7 +18,7 @@ export function FormMain() {
     resolver: yupResolver(testFormSchema),
     defaultValues: {
       // items フォームをデフォルトで4つ表示する。
-      items: [...Array(4)].map(() => ({}))
+      items: [...Array(4)].map(() => ({})),
       /*
       items: [
         {},
@@ -27,7 +27,7 @@ export function FormMain() {
         {},
       ]
       */
-    }
+    },
   });
 
   // useFieldArray を使用することで items 任意の数扱うことができる。

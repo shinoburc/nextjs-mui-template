@@ -37,12 +37,22 @@ export const mainMenu = (
         <ListItemText primary='Header Items Form' />
       </ListItemButton>
     </Link>
-    <ListItemButton>
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>
-      <ListItemText primary='Menu' />
-    </ListItemButton>
+    <Link href='/file-uploader' passHref>
+      <ListItemButton>
+        <ListItemIcon>
+          <LayersIcon />
+        </ListItemIcon>
+        <ListItemText primary='file-uploader' />
+      </ListItemButton>
+    </Link>
+    <Link href='/qr-code-reader' passHref>
+      <ListItemButton>
+        <ListItemIcon>
+          <LayersIcon />
+        </ListItemIcon>
+        <ListItemText primary='qr-code-reader' />
+      </ListItemButton>
+    </Link>
   </React.Fragment>
 );
 
