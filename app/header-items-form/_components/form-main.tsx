@@ -85,9 +85,6 @@ export function FormMain() {
                 variant='contained'
                 color='primary'
                 startIcon={<Print />}
-                onClick={() => {
-                  setDialogIsOpen(true);
-                }}
               >
                 Printer
               </Button>
