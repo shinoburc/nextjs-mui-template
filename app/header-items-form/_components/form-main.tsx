@@ -11,7 +11,7 @@ import {
   TextField,
 } from '@mui/material';
 
-import { AddCircle, EditNote } from '@mui/icons-material';
+import { AddCircle, EditCalendar, EditNote, Launch, Print, Save } from '@mui/icons-material';
 
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 
@@ -65,9 +65,9 @@ export function FormMain() {
 
           {/* Items Form */}
           <ItemsFormLabel />
-          {fields.map((field, index) => {
-            return <ItemsForm key={index} field={field} index={index} remove={remove} />;
-          })}
+          {fields.map((field, index) => 
+            <ItemsForm key={index} field={field} index={index} remove={remove} />
+          )}
 
           {/* Submit */}
           <Grid container spacing={2} margin={0}>
@@ -81,8 +81,15 @@ export function FormMain() {
               </IconButton>
             </Grid>
             <Grid item xs={1.5}>
-              <Button type='submit' variant='contained' color='primary'>
-                Submit
+              <Button
+                variant='contained'
+                color='primary'
+                startIcon={<Print />}
+                onClick={() => {
+                  setDialogIsOpen(true);
+                }}
+              >
+                Printer
               </Button>
             </Grid>
             <Grid item xs={1.5}>
@@ -95,6 +102,36 @@ export function FormMain() {
                 }}
               >
                 メモ
+              </Button>
+            </Grid>
+            <Grid item xs={2.0}>
+            </Grid>
+            <Grid item xs={1.5}>
+              <Button
+                variant='contained'
+                color='primary'
+                startIcon={<EditCalendar />}
+              >
+                起票
+              </Button>
+            </Grid>
+            <Grid item xs={2.5}>
+              <Button
+                variant='contained'
+                color='primary'
+                startIcon={<Launch />}
+              >
+                Direct Order
+              </Button>
+            </Grid>
+            <Grid item xs={1.5}>
+              <Button
+                type='submit'
+                variant='contained'
+                color='primary'
+                startIcon={<Save />}
+              >
+                保存
               </Button>
             </Grid>
           </Grid>
@@ -114,7 +151,12 @@ export function FormMain() {
                 overflow: 'auto', // for scrollable
               }}
             >
-              <TextField label='Multiline' multiline rows={10} />
+              <TextField
+                label='Memo'
+                multiline
+                rows={10}
+                {...methods.register('memo.message')}
+              />
             </Paper>
             <Button type='submit' variant='contained' color='primary'>
               SAVE

@@ -13,5 +13,8 @@ export const testFormSchema = yup.object().shape({
       items_attr2: yup.string(),
     })
   ),
+  memo: yup.object({
+    message: yup.string(),
+  }),
 });
 export type TestFormData = yup.InferType<typeof testFormSchema>;
