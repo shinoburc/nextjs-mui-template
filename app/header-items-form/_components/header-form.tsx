@@ -4,11 +4,11 @@ import { Autocomplete, FormControl, Grid, MenuItem, TextField } from '@mui/mater
 
 import { useFormContext } from 'react-hook-form';
 
-import { TestFormData } from '@/app/_formSchema/grid_test_schema';
+import { HeaderItemsFormData } from '@/app/_formSchema/header_items_schema';
 import React from 'react';
 
 export function HeaderForm() {
-  const methods = useFormContext<TestFormData>();
+  const methods = useFormContext<HeaderItemsFormData>();
 
   // A Numbers mock
   const AMockList = [

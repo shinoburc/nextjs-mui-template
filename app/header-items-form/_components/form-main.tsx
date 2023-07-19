@@ -15,19 +15,24 @@ import { AddCircle, EditCalendar, EditNote, Launch, Print, Save } from '@mui/ico
 
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 
-import { testFormSchema } from '@/app/_formSchema/grid_test_schema';
+import { headerItemsFormSchema } from '@/app/_formSchema/header_items_schema';
 
 import { HeaderForm } from './header-form';
 import { ItemsFormLabel } from './items-form-label';
 import { ItemsForm } from './items-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export function FormMain() {
+  const router = useRouter();
+
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
+  type mode = 'A' | 'B' | 'C';
+
   const methods = useForm({
-    resolver: yupResolver(testFormSchema),
+    resolver: yupResolver(headerItemsFormSchema),
     defaultValues: {
       // items フォームをデフォルトで4つ表示する。
       items: [...Array(4)].map(() => ({})),
@@ -51,7 +56,19 @@ export function FormMain() {
   });
 
   const onSubmit = methods.handleSubmit(async (formData) => {
-    console.log(formData);
+    //console.log(formData);
+    const response = await fetch('/api/header-items', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
+    if (response.ok) {
+      console.log(await response.json());
+      router.refresh();
+      router.push('/header-items-list');
+    } else {
+      //setPostError('server error');
+    }
   });
 
   // 子コンポーネントとフォーム情報を共有するために

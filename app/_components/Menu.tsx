@@ -37,6 +37,14 @@ export const mainMenu = (
         <ListItemText primary='Header Items Form' />
       </ListItemButton>
     </Link>
+    <Link href='/header-items-list' passHref>
+      <ListItemButton>
+        <ListItemIcon>
+          <BarChartIcon />
+        </ListItemIcon>
+        <ListItemText primary='Header Items List' />
+      </ListItemButton>
+    </Link>
     <Link href='/file-uploader' passHref>
       <ListItemButton>
         <ListItemIcon>

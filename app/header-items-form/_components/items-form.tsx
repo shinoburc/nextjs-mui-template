@@ -14,11 +14,11 @@ import { Search, Delete } from '@mui/icons-material';
 
 import { FieldArrayWithId, UseFieldArrayRemove, useForm, useFormContext } from 'react-hook-form';
 
-import { testFormSchema, TestFormData } from '@/app/_formSchema/grid_test_schema';
+import { headerItemsFormSchema, HeaderItemsFormData } from '@/app/_formSchema/header_items_schema';
 import React from 'react';
 
 type Props = {
-  field: FieldArrayWithId<TestFormData, 'items', 'id'>;
+  field: FieldArrayWithId<HeaderItemsFormData, 'items', 'id'>;
   index: number;
   remove: UseFieldArrayRemove;
 };
@@ -27,7 +27,7 @@ export function ItemsForm({ field, index, remove }: Props) {
   const {
     register,
     formState: { errors },
-  } = useFormContext<TestFormData>();
+  } = useFormContext<HeaderItemsFormData>();
 
   return (
     <>

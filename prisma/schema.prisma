@@ -102,3 +102,21 @@ model Department {
   children Department[]     @relation("Parent Children")
   users User[]
 }
+
+model Header {
+  id            String    @id @default(cuid())
+  header_attr1  String
+  header_attr2  String
+  header_attr3  String
+  header_attr4  String
+  items Item[]
+}
+
+model Item {
+  id          String    @id @default(cuid())
+  items_attr1 String?
+  items_attr2 String?
+  headerId    String
+  // Header が削除されたときに、紐づく Item も削除するために onDelete: Cascade を指定している。
+  header  Header  @relation(fields: [headerId], references: [id], onDelete: Cascade)
+}
