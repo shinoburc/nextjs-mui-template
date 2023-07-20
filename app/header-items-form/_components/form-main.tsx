@@ -4,6 +4,8 @@ import {
   Box,
   Button,
   Dialog,
+  DialogActions,
+  DialogContent,
   DialogTitle,
   Grid,
   IconButton,
@@ -29,6 +31,7 @@ export function FormMain() {
 
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
+  // TODO: mode により表示する項目を変更できるようにする。
   type mode = 'A' | 'B' | 'C';
 
   const methods = useForm({
@@ -56,7 +59,6 @@ export function FormMain() {
   });
 
   const onSubmit = methods.handleSubmit(async (formData) => {
-    //console.log(formData);
     const response = await fetch('/api/header-items', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -67,6 +69,7 @@ export function FormMain() {
       router.refresh();
       router.push('/header-items-list');
     } else {
+      // TODO:
       //setPostError('server error');
     }
   });
@@ -82,9 +85,9 @@ export function FormMain() {
 
           {/* Items Form */}
           <ItemsFormLabel />
-          {fields.map((field, index) => 
+          {fields.map((field, index) => (
             <ItemsForm key={index} field={field} index={index} remove={remove} />
-          )}
+          ))}
 
           {/* Submit */}
           <Grid container spacing={2} margin={0}>
@@ -98,11 +101,7 @@ export function FormMain() {
               </IconButton>
             </Grid>
             <Grid item xs={1.5}>
-              <Button
-                variant='contained'
-                color='primary'
-                startIcon={<Print />}
-              >
+              <Button variant='contained' color='primary' startIcon={<Print />}>
                 Printer
               </Button>
             </Grid>
@@ -118,33 +117,19 @@ export function FormMain() {
                 メモ
               </Button>
             </Grid>
-            <Grid item xs={2.0}>
-            </Grid>
+            <Grid item xs={2.0}></Grid>
             <Grid item xs={1.5}>
-              <Button
-                variant='contained'
-                color='primary'
-                startIcon={<EditCalendar />}
-              >
+              <Button variant='contained' color='primary' startIcon={<EditCalendar />}>
                 起票
               </Button>
             </Grid>
             <Grid item xs={2.5}>
-              <Button
-                variant='contained'
-                color='primary'
-                startIcon={<Launch />}
-              >
+              <Button variant='contained' color='primary' startIcon={<Launch />}>
                 Direct Order
               </Button>
             </Grid>
             <Grid item xs={1.5}>
-              <Button
-                type='submit'
-                variant='contained'
-                color='primary'
-                startIcon={<Save />}
-              >
+              <Button type='submit' variant='contained' color='primary' startIcon={<Save />}>
                 保存
               </Button>
             </Grid>
@@ -156,25 +141,17 @@ export function FormMain() {
             open={dialogIsOpen}
           >
             <DialogTitle>メモ</DialogTitle>
-            <Paper
-              sx={{
-                p: 2,
-                display: 'flex',
-                flexDirection: 'column',
-                height: 300,
-                overflow: 'auto', // for scrollable
-              }}
-            >
-              <TextField
-                label='Memo'
-                multiline
-                rows={10}
-                {...methods.register('memo.message')}
-              />
-            </Paper>
-            <Button type='submit' variant='contained' color='primary'>
-              SAVE
-            </Button>
+            <DialogContent>
+              <TextField multiline rows={10} {...methods.register('memo.message')} />
+            </DialogContent>
+            {/* SAVE ボタンを表示する場合。*/}
+            {/*
+            <DialogActions>
+              <Button type='submit' variant='contained' color='primary'>
+                SAVE
+              </Button>
+            </DialogActions>
+            */}
           </Dialog>
         </Box>
       </form>

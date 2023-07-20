@@ -7,12 +7,16 @@ export const headerItemsFormSchema = yup.object().shape({
     header_attr3: yup.string().required(),
     header_attr4: yup.string().required(),
   }),
-  items: yup.array(
-    yup.object({
-      items_attr1: yup.string(),
-      items_attr2: yup.string(),
-    }).required(),
-  ).required(),
+  items: yup
+    .array(
+      yup
+        .object({
+          items_attr1: yup.string(),
+          items_attr2: yup.string(),
+        })
+        .required()
+    )
+    .required(),
   memo: yup.object({
     message: yup.string(),
   }),
