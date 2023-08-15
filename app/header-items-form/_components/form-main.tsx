@@ -4,12 +4,10 @@ import {
   Box,
   Button,
   Dialog,
-  DialogActions,
   DialogContent,
   DialogTitle,
   Grid,
   IconButton,
-  Paper,
   TextField,
 } from '@mui/material';
 
@@ -17,7 +15,8 @@ import { AddCircle, EditCalendar, EditNote, Launch, Print, Save } from '@mui/ico
 
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 
-import { headerItemsFormSchema } from '@/app/_formSchema/header_items_schema';
+import { HeaderItemsFormData, headerItemsFormSchema } from '@/app/_formSchema/header_items_schema';
+import type { HeaderWithItems } from '@/app/_repositories/Header';
 
 import { HeaderForm } from './header-form';
 import { ItemsFormLabel } from './items-form-label';
@@ -26,28 +25,66 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-export function FormMain() {
+type Props = {
+  header?: HeaderWithItems | null;
+};
+
+export function FormMain(props: Props) {
+  const header = props.header;
+
   const router = useRouter();
 
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
-  // TODO: mode により表示する項目を変更できるようにする。
-  type mode = 'A' | 'B' | 'C';
+  // props.user が与えられていれば「編集モード(edit)」とする。
+  // props.user が与えられていなれば「作成モード(create)」とする。
+  let mode: 'edit' | 'create';
+  if (header) {
+    mode = 'edit';
+  } else {
+    mode = 'create';
+  }
+  // TODO: organizationMode により表示する項目を変更できるようにする。
+  //type organizationMode = 'A' | 'B' | 'C';
 
-  const methods = useForm({
-    resolver: yupResolver(headerItemsFormSchema),
-    defaultValues: {
-      // items フォームをデフォルトで4つ表示する。
-      items: [...Array(4)].map(() => ({})),
+  let defaultValues: HeaderItemsFormData;
+  if (header) {
+    defaultValues = {
+      header: {
+        ...header,
+      },
+      items: header?.items.map((item) => {
+        const { id, headerId, ...withoutId } = item;
+        return withoutId;
+      }),
+      memo: {
+        message: '',
+      },
+    };
+  } else {
+    const emptyFormData = {} as HeaderItemsFormData;
+    defaultValues = {
+      ...emptyFormData,
+      // items フォームをデフォルトで5つ表示する。
+      items: [...Array(5)].map(() => ({})),
+      // 上記は以下と同じ意味となる。
       /*
       items: [
         {},
         {},
         {},
         {},
+        {},
       ]
       */
-    },
+      memo: {
+        message: '',
+      },
+    };
+  }
+  const methods = useForm({
+    resolver: yupResolver(headerItemsFormSchema),
+    defaultValues: defaultValues,
   });
 
   // useFieldArray を使用することで items 任意の数扱うことができる。
@@ -59,11 +96,21 @@ export function FormMain() {
   });
 
   const onSubmit = methods.handleSubmit(async (formData) => {
-    const response = await fetch('/api/header-items', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    });
+    let response: Response;
+    if (mode == 'edit') {
+      response = await fetch(`/api/header-items/${header?.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+    } else {
+      // mode == 'create'
+      response = await fetch('/api/header-items', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+    }
     if (response.ok) {
       console.log(await response.json());
       router.refresh();

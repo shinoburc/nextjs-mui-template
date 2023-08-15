@@ -29,6 +29,21 @@ export namespace HeaderRepository {
       where: {
         id: id,
       },
+      /*
+      select: {
+        id: true,
+        header_attr1: true,
+        header_attr2: true,
+        header_attr3: true,
+        header_attr4: true,
+        items: {
+          select: {
+            items_attr1: true,
+            items_attr2: true,
+          },
+        }
+      }
+      */
     });
   }
 
@@ -41,11 +56,13 @@ export namespace HeaderRepository {
    * @returns created_header
    */
   export async function create(header_items: HeaderItemsFormData) {
-    // items の各要素から undefined を取り省いた型を生成する。
-    type item_type = Required<(typeof header_items.items)[number]>;
+    // items は react-hook-form で required にしていないため、型に undefined が含まれる。
+    // undefined が付いていると prisma での型チェックに通らない。
+    // そのため、items の各要素から undefined を取り省いた型を生成する。
+    type ItemRequiredType = Required<(typeof header_items.items)[number]>;
     // 上記は以下と同様。
     /*
-    type item_type = {
+    type ItemRequiredType = {
       items_attr1: string,
       items_attr2: string,
     }
@@ -53,16 +70,18 @@ export namespace HeaderRepository {
 
     // 現状の実装では入力フォームで空の items が生成されるようにしているため。
     // header_items.items から全プロパティが空文字の要素を除外する。
+    /*
     const items = header_items.items.filter(
       (item): item is item_type => item.items_attr1 != '' && item.items_attr2 != ''
     );
+    */
 
     return await prisma.header.create({
       data: {
         ...header_items.header,
         // Item テーブルに作成するデータを指定している。
         items: {
-          create: items,
+          create: header_items.items as ItemRequiredType[],
         },
       },
       // Header テーブルと同時に Item テーブルにもデータを作成することを指定している。
@@ -73,19 +92,42 @@ export namespace HeaderRepository {
   }
 
   /**
-   * TODO: 未実装
-   * 
+   * TODO:
+   *
    * @param id
-   * @param header 
-   * @returns 
+   * @param header
+   * @returns
    */
-  export async function update(id: string, header: Header) {
+  export async function update(id: string, header_items: HeaderItemsFormData) {
+    // items の各要素から undefined を取り省いた型を生成する。
+    type ItemRequiredType = Required<(typeof header_items.items)[number]>;
+    // 現状の実装では入力フォームで空の items が生成されるようにしているため。
+    // header_items.items から全プロパティが空文字の要素を除外する。
+    /*
+    const items = header_items.items.filter(
+      (item): item is item_type => item.items_attr1 != '' && item.items_attr2 != ''
+    );
+    */
+
     return await prisma.header.update({
       where: {
         id: id,
       },
       data: {
-        ...header,
+        ...header_items.header,
+        // Item テーブルに作成するデータを指定している。
+        items: {
+          // prisma の Transaction API を使用して
+          // delete してから create すると明記する
+          // 必要があるかもしれない。
+          // 現状はソースコードの順番で実行されている。
+          deleteMany: {},
+          create: header_items.items as ItemRequiredType[],
+        },
+      },
+      // Header テーブルと同時に Item テーブルにもデータを作成することを指定している。
+      include: {
+        items: true,
       },
     });
   }

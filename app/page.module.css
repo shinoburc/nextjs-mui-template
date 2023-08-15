@@ -7,6 +7,11 @@
   min-height: 100vh;
 }
 
+.test {
+  width: 720;
+  height: 320;
+}
+
 .description {
   display: inherit;
   justify-content: inherit;

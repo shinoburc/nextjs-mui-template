@@ -9,12 +9,10 @@ export const headerItemsFormSchema = yup.object().shape({
   }),
   items: yup
     .array(
-      yup
-        .object({
-          items_attr1: yup.string(),
-          items_attr2: yup.string(),
-        })
-        .required()
+      yup.object({
+        items_attr1: yup.string(),
+        items_attr2: yup.string(),
+      })
     )
     .required(),
   memo: yup.object({
