@@ -14,6 +14,16 @@ export default function QRCodeReader() {
   const [data, setData] = useState('No result');
 
   return (
+    <main className={styles.main}>
+      <div className={styles.description}>
+        <p>QR Code Reader&nbsp;</p>
+        <p>
+          <Link href='/' className=''>
+            Home
+          </Link>
+        </p>
+        <div className=''>
+          <div className=''>
             <QrReader
               onResult={(result, error) => {
                 if (result) {
@@ -25,5 +35,10 @@ export default function QRCodeReader() {
               }}
               constraints={{ facingMode: 'environment' }}
             />
+            <p>{data}</p>
+          </div>
+        </div>
+      </div>
+    </main>
   );
 }
