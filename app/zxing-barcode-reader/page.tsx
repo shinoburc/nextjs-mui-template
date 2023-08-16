@@ -1,15 +1,11 @@
 'use client';
 
-// reference
-// react-qr-reader
-// https://github.com/JodusNodus/react-qr-reader
-
 import { useState, useEffect } from 'react';
-import { QrReader } from 'react-qr-reader';
+import { ZxingReader } from './_components/ZxingReader'
 
 import styles from '../page.module.css';
 
-export default function QRCodeReader() {
+export default function BarcodeAndQRCodeReader() {
   const [data, setData] = useState('No result');
 
   // Hydration failed エラーを回避するために、
@@ -22,25 +18,22 @@ export default function QRCodeReader() {
   }, [])
   if (!hasMounted) return null;
 
-
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <div className=''>
-          <QrReader
-            onResult={(result, error) => {
-              if (result) {
-                setData(result.getText());
-              }
-              if (error) {
-                console.info(error);
-              }
-            }}
-            constraints={{ facingMode: 'environment' }}
-          />
-          <div>{data}</div>
-        </div>
+      <div>
+        <ZxingReader
+          onResult={(result, error) => {
+            if(error) {
+              console.info(error);
+              return;
+            }
+            if(result) {
+              setData(result.getText());
+            }
+          }}
+        />
       </div>
+      <div>{data}</div>
     </main>
   );
 }

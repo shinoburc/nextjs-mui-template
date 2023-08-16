@@ -61,6 +61,14 @@ export const mainMenu = (
         <ListItemText primary='qr-code-reader' />
       </ListItemButton>
     </Link>
+    <Link href='/zxing-barcode-reader' passHref>
+      <ListItemButton>
+        <ListItemIcon>
+          <LayersIcon />
+        </ListItemIcon>
+        <ListItemText primary='zxing-barcode-reader' />
+      </ListItemButton>
+    </Link>
   </React.Fragment>
 );
 
