@@ -29,23 +29,23 @@ export function ZxingReader(props: Props) {
       undefined, 
       videoRef.current, 
       (result, error, controls) => {
-        /*
-        if (error) {
-          return
-        }
-        */
         onResult(result, error)
         controlsRef.current = controls
-      })
+      }
+    )
     return () => {
       if (!controlsRef.current) {
         return
       }
       
-      controlsRef.current?.stop()
-      controlsRef.current = null
+      try {
+        controlsRef.current.stop()
+        controlsRef.current = null
+      } catch(e) {
+        console.error("TODO: error handling")
+      }
     }
-  }, [onResult])
+  }, [onResult, videoRef])
 
   return (
     <video
