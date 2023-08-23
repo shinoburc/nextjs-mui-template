@@ -5,7 +5,9 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
+import QrCode2Icon from '@mui/icons-material/QrCode2';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
@@ -56,7 +58,7 @@ export const mainMenu = (
     <Link href='/qr-code-reader' passHref>
       <ListItemButton>
         <ListItemIcon>
-          <LayersIcon />
+          <QrCodeScannerIcon />
         </ListItemIcon>
         <ListItemText primary='qr-code-reader' />
       </ListItemButton>
@@ -64,9 +66,17 @@ export const mainMenu = (
     <Link href='/zxing-barcode-reader' passHref>
       <ListItemButton>
         <ListItemIcon>
-          <LayersIcon />
+          <QrCode2Icon />
         </ListItemIcon>
         <ListItemText primary='zxing-barcode-reader' />
+      </ListItemButton>
+    </Link>
+    <Link href='/activereports' passHref>
+      <ListItemButton>
+        <ListItemIcon>
+          <ReceiptLongIcon />
+        </ListItemIcon>
+        <ListItemText primary='ActiveReports' />
       </ListItemButton>
     </Link>
   </React.Fragment>
