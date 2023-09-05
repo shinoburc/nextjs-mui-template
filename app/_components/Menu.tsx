@@ -5,6 +5,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import CameraIcon from '@mui/icons-material/Camera';
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 import QrCode2Icon from '@mui/icons-material/QrCode2';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
@@ -53,6 +54,14 @@ export const mainMenu = (
           <LayersIcon />
         </ListItemIcon>
         <ListItemText primary='file-uploader' />
+      </ListItemButton>
+    </Link>
+    <Link href='/camera-photo-uploader' passHref>
+      <ListItemButton>
+        <ListItemIcon>
+          <CameraIcon />
+        </ListItemIcon>
+        <ListItemText primary='camera-photo-uploader' />
       </ListItemButton>
     </Link>
     <Link href='/qr-code-reader' passHref>
