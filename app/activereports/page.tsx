@@ -19,9 +19,13 @@ const ActiveReportsPage: NextPage = () => {
     <div
       style={{ width: "100%", height: "100vh" }}
     >
-      <Viewer reportUri="reports/Invoice_green_ipa.rdlx-json" language="ja" />
+      <Viewer
+        reportUri="reports/my-report001.rdlx-json"
+        language="ja"
+      />
     </div>
   );
 };
 
+// <Viewer reportUri="reports/Invoice_green_ipa.rdlx-json" language="ja" />
 export default ActiveReportsPage;
