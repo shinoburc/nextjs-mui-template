@@ -5,7 +5,7 @@ import type { User as _User } from '@prisma/client';
 export type User = _User;
 
 export type UserWithRoleDepartment = Exclude<
-  Prisma.PromiseReturnType<typeof UserRepository.findUnique>,
+  Prisma.PromiseReturnType<typeof UserRepository.findUniqueWithRoleDepartment>,
   null
 >;
 
@@ -20,6 +20,14 @@ export namespace UserRepository {
   }
 
   export async function findUnique(id: string) {
+    return await prisma.user.findUnique({
+      where: {
+        id: id,
+      },
+    });
+  }
+
+  export async function findUniqueWithRoleDepartment(id: string) {
     return await prisma.user.findUnique({
       include: {
         role: true,

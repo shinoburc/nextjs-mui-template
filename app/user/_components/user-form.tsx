@@ -15,12 +15,12 @@ import Button from '@mui/material/Button';
 
 import { userFormSchema, UserFormData } from '@/app/_formSchema/user';
 
-import type { UserWithRoleDepartment } from '@/app/_repositories/User';
+import type { User } from '@/app/_repositories/User';
 import type { Role } from '@/app/_repositories/Role';
 import type { Department } from '@/app/_repositories/Department';
 
 type Props = {
-  user?: UserWithRoleDepartment | null;
+  user?: User | null;
   roles: Role[];
   departments: Department[];
   onSuccessUrl: string;
