@@ -88,14 +88,36 @@ const handler = NextAuth({
   ],
   callbacks: {
     async jwt({ token, user, account }) {
+      console.log("token: ", token)
+      // セッションの有効秒
+      const SESSION_EXPIRES_SECOND = 60 * 60;
+      // 秒までの現在時刻を UNIXTIME で取得する
+      const nowUnixtime = Math.floor(Date.now() / 1000);
+
       // 最初のサインイン
       if (account && user) {
+        // 現在時刻+セッション有効秒を計算し、セッション期限を生成する
+        const sessionExpires = nowUnixtime + SESSION_EXPIRES_SECOND;
+        // JWT に独自のフィールドを追加するため、型を拡張しておく
+        // reference: https://next-auth.js.org/getting-started/typescript#submodules
+        // reference: https://techlab.q-co.jp/articles/111/
         return {
           ...token,
           accessToken: account.access_token,
           refreshToken: account.refresh_token,
           accessTokenExpires: account.accessTokenExpires,
+          sessionExpires: sessionExpires,
         };
+      }
+
+      if(token.sessionExpires > nowUnixtime){
+        // セッション有効期限を更新する
+        token.sessionExpires = nowUnixtime + SESSION_EXPIRES_SECOND;
+      } else {
+        // セッション切れのため、Promise.rejectを return する
+        return Promise.reject({
+          error: new Error("token has expired. Please log in again."),
+        });
       }
 
       return token;
@@ -104,9 +126,12 @@ const handler = NextAuth({
       session.user.accessToken = token.accessToken;
       session.user.refreshToken = token.refreshToken;
       session.user.accessTokenExpires = token.accessTokenExpires;
-
       return session;
     },
+  },
+  session: {
+    strategy: 'jwt',
+    //maxAge: 10,
   },
   secret: process.env.NEXTAUTH_SECRET,
   // サインイン・サインアウトで飛ぶカスタムログインページを指定
