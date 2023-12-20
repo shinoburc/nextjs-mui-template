@@ -48,6 +48,14 @@ export const mainMenu = (
         <ListItemText primary='Header Items List' />
       </ListItemButton>
     </Link>
+    <Link href='/revalidate-data' passHref>
+      <ListItemButton>
+        <ListItemIcon>
+          <BarChartIcon />
+        </ListItemIcon>
+        <ListItemText primary='Revalidate Data' />
+      </ListItemButton>
+    </Link>
     <Link href='/file-uploader' passHref>
       <ListItemButton>
         <ListItemIcon>
