@@ -13,6 +13,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import LineAxisIcon from '@mui/icons-material/LineAxis';
 
 export const mainMenu = (
   <React.Fragment>
@@ -94,6 +95,14 @@ export const mainMenu = (
           <ReceiptLongIcon />
         </ListItemIcon>
         <ListItemText primary='ActiveReports' />
+      </ListItemButton>
+    </Link>
+    <Link href='/leader-line' passHref>
+      <ListItemButton>
+        <ListItemIcon>
+          <LineAxisIcon />
+        </ListItemIcon>
+        <ListItemText primary='LeaderLine' />
       </ListItemButton>
     </Link>
   </React.Fragment>
