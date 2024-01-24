@@ -70,20 +70,20 @@ export default function Main() {
 
   useEffect(() => {
     execute();
-    window.dispatchEvent(new Event('resize'));
     // ウィンドウのサイズが変更されたときに、線を引き直す
-    //window.addEventListener('resize', execute);
+    window.addEventListener('resize', execute);
+    // ブラウザのスクロールバーの分、線がずれるため、resize イベントを発生させて、線を再描画する
+    window.dispatchEvent(new Event('resize'));
 
     // コンポーネントがアンマウントされるときに、イベントハンドラを削除し、線を削除する
     return () => {
         removeLine();
-        //window.removeEventListener('resize', execute);
+        window.removeEventListener('resize', execute);
     };
   }, [cardRef1, cardRef2, cardRef3, cardRef4]);
 
   return (
-    <Paper>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} sx={{ pl: 4 }}>
         {/* Grid Header */}
         <Grid item xs={4}>
           <span>P</span>
@@ -119,6 +119,5 @@ export default function Main() {
           <Card ref={cardRef4}>1. Card4</Card>
         </Grid>
       </Grid>
-    </Paper>
   );
 }
