@@ -45,13 +45,20 @@ export namespace UserRepository {
     });
   }
 
+  /**
+   *  updatedAt を除外することで、prisma が自動的に updatedAt を更新するようにする。
+   *  where に updatedAt を含めることで、楽観的ロックを実現する。
+   */
   export async function update(id: string, user: User) {
+    // user を updatedAt と userWithoutUpdatedAt に分割する。
+    const { updatedAt, ...userWithoutUpdatedAt } = user;
     return await prisma.user.update({
       where: {
         id: id,
+        updatedAt: updatedAt,
       },
       data: {
-        ...user,
+        ...userWithoutUpdatedAt,
       },
     });
   }
