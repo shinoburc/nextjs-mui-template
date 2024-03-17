@@ -160,17 +160,6 @@ export default function UserForm(props: Props) {
           <FormHelperText error={true}>{errors.departmentId?.message}</FormHelperText>
         </FormControl>
         <FormControl fullWidth error={'joinningDate' in errors}>
-          {/*
-          <DatePicker 
-            label="Joinning Date"
-            //mask="____年__月__日"
-            //inputFormat="yyyy年MM月dd日"
-            views={['year', 'month', 'day']}
-            //defaultValue={user?.joinningDate}
-            //value={user?.joinningDate}
-            {...register('joinningDate')}
-          />
-          */}
           {/* reference: 
                 MUI x-DatePicker 6: use dayjs instead of moment for react-hook-form
                 https://medium.com/@david.zhao.blog/mui-x-datepicker-6-use-dayjs-instead-of-moment-for-react-hook-form-d590f5d62023
