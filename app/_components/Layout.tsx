@@ -204,9 +204,6 @@ export default function Layout({ children }: LayoutProps) {
                   <LocalizationProvider
                     dateAdapter={AdapterDayjs}
                     adapterLocale='ja'
-                    //dateAdapter={AdapterDateFns}
-                    //adapterLocale={ja} //ja追加
-                    //dateFormats={{ monthAndYear: 'YYYY年 MM月' }}
                     localeText={{
                       previousMonth: "前月",
                       nextMonth: "次月"
