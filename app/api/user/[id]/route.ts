@@ -4,6 +4,11 @@ import type { NextRequest } from 'next/server';
 import type { User } from '@/app/_repositories/User';
 import { UserRepository } from '@/app/_repositories/User';
 
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+  const user = await UserRepository.findUnique(params.id);
+  return NextResponse.json(user);
+}
+
 export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const user: User = await request.json();

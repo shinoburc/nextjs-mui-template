@@ -13,6 +13,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
 import Button from '@mui/material/Button';
 
+import { mutate } from 'swr';
+
 import { userFormSchema, UserFormData } from '@/app/_formSchema/user';
 
 import type { User } from '@/app/_repositories/User';
@@ -86,6 +88,8 @@ export default function UserForm(props: Props) {
     }
     if (response.ok) {
       //const response_json = await response.json();
+      mutate(`/api/user/${user?.id}`);
+
       router.refresh();
       router.push(onSuccessUrl);
     } else {
