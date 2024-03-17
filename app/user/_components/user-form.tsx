@@ -18,7 +18,8 @@ import { userFormSchema, UserFormData } from '@/app/_formSchema/user';
 import type { User } from '@/app/_repositories/User';
 import type { Role } from '@/app/_repositories/Role';
 import type { Department } from '@/app/_repositories/Department';
-import { DatePicker } from '@mui/x-date-pickers';
+//import { DatePicker } from '@mui/x-date-pickers';
+import { DateTimePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 
 type Props = {
@@ -168,9 +169,9 @@ export default function UserForm(props: Props) {
             name={"joinningDate"}
             control={control}
             render={({ field: { onChange, value } }) => (
-                <DatePicker
+                <DateTimePicker
                   label="Joinning Date"
-                  format="YYYY/MM/DD"
+                  format="YYYY/MM/DD HH:mm:ss"
                   onChange={onChange}
                   value={value ? dayjs(value) : undefined}
                   defaultValue={user ? dayjs(user.joinningDate) : undefined}
