@@ -51,6 +51,8 @@ model User {
   email         String   @unique
   emailVerified DateTime?
   image         String?
+  // 入社日、入学日、会員になった日
+  joinningDate  DateTime?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   accounts      Account[]

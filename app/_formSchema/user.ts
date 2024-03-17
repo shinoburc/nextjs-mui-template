@@ -8,6 +8,7 @@ export const userFormSchema = yup
     name: yup.string().nullable(),
     email: yup.string().email('Invalid mail format.').required('email is a required field'),
     password: yup.string().min(4).required('password is a required field'),
+    joinningDate: yup.date().nullable(),
     roleId: yup.string().required(),
     departmentId: yup.string().required(),
   })
