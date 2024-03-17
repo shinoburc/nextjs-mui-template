@@ -1,8 +1,16 @@
-import { UserRepository } from '@/app/_repositories/User';
+'use client'
+
+import { fetcher } from '@/app/_utils/fetcher';
+import useSWR from 'swr';
+
+import type { UserWithRoleDepartment } from '@/app/_repositories/User';
 import UserList from '@/app/user/_components/user-list';
 
-export default async function UserPage() {
-  const users = await UserRepository.findMany();
+export default function UserPage() {
+  const { data: users } = useSWR<UserWithRoleDepartment[]>('/api/user', fetcher);
+
+  if(!users) return;
+
   return (
     <>
       <UserList users={users} />

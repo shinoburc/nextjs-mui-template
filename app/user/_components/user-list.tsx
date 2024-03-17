@@ -13,6 +13,7 @@ import TableRow from '@mui/material/TableRow';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 import { useRouter } from 'next/navigation';
+import { mutate } from 'swr';
 
 import type { UserWithRoleDepartment } from '@/app/_repositories/User';
 
@@ -41,6 +42,7 @@ export default function UserList(props: Props) {
     const response = await fetch(`/api/user/${id}`, {
       method: 'DELETE',
     });
+    mutate('/api/user');
     router.refresh();
   };
 
