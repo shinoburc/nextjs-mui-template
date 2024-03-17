@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import FormControl from '@mui/material/FormControl';
@@ -18,6 +18,8 @@ import { userFormSchema, UserFormData } from '@/app/_formSchema/user';
 import type { User } from '@/app/_repositories/User';
 import type { Role } from '@/app/_repositories/Role';
 import type { Department } from '@/app/_repositories/Department';
+import { DatePicker } from '@mui/x-date-pickers';
+import dayjs from 'dayjs';
 
 type Props = {
   user?: User | null;
@@ -46,6 +48,7 @@ export default function UserForm(props: Props) {
   const [postError, setPostError] = React.useState<string>();
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
     reset,
@@ -155,6 +158,25 @@ export default function UserForm(props: Props) {
             })}
           </Select>
           <FormHelperText error={true}>{errors.departmentId?.message}</FormHelperText>
+        </FormControl>
+        <FormControl fullWidth error={'joinningDate' in errors}>
+          {/* reference: 
+                MUI x-DatePicker 6: use dayjs instead of moment for react-hook-form
+                https://medium.com/@david.zhao.blog/mui-x-datepicker-6-use-dayjs-instead-of-moment-for-react-hook-form-d590f5d62023
+          */}
+          <Controller
+            name={"joinningDate"}
+            control={control}
+            render={({ field: { onChange, value } }) => (
+                <DatePicker
+                  label="Joinning Date"
+                  format="YYYY/MM/DD"
+                  onChange={onChange}
+                  value={value ? dayjs(value) : undefined}
+                  defaultValue={user ? dayjs(user.joinningDate) : undefined}
+                />
+            )}
+          />
         </FormControl>
         <Button type='submit' variant='contained' color='primary'>
           Submit

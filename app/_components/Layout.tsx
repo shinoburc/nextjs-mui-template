@@ -20,7 +20,12 @@ import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import NotificationsIcon from '@mui/icons-material/Notifications'
+
+// For DataPicker locale
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import 'dayjs/locale/ja';
 
 import { SessionProvider } from 'next-auth/react';
 import { mainMenu, secondaryMenu } from './Menu';
@@ -196,7 +201,16 @@ export default function Layout({ children }: LayoutProps) {
                     overflow: 'auto', // for scrollable
                   }}
                 >
-                  {children}
+                  <LocalizationProvider
+                    dateAdapter={AdapterDayjs}
+                    adapterLocale='ja'
+                    localeText={{
+                      previousMonth: "前月",
+                      nextMonth: "次月"
+                    }}
+                  >
+                    {children}
+                  </LocalizationProvider>  
                   {/*<Chart />*/}
                 </Paper>
               </Grid>
