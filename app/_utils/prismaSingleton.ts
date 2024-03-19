@@ -13,7 +13,27 @@ declare global {
 export const prisma =
   global.prisma ||
   new PrismaClient({
+    // SQL(値は含まない)を出力する場合は以下のように設定する
     //log: ["query"],
+
+    // SQL(値も含む)を出力する場合は以下のように設定し、
+    // さらに、下部でコメントアウトしている `prisma.$on...` も有効にする
+    /*
+    log: [
+      {
+        emit: "event",
+        level: "query",
+      },
+    ],
+    */
   });
+
+// SQL(値も含む)を出力する
+/*
+// @ts-ignore
+prisma.$on("query", async (e: any) => {
+  console.dir(`${e.query} ${e.params}`)
+});
+*/
 
 if (process.env.NODE_ENV !== 'production') global.prisma = prisma;
