@@ -55,7 +55,11 @@ export function FormMain(props: Props) {
       },
       items: header?.items.map((item) => {
         const { id, headerId, ...withoutId } = item;
-        return withoutId;
+        return {
+          ...withoutId,
+          items_attr1: withoutId.items_attr1 || undefined,
+          items_attr2: withoutId.items_attr2 || undefined,
+        };
       }),
       memo: {
         message: '',
