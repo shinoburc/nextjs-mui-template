@@ -105,6 +105,14 @@ export const mainMenu = (
         <ListItemText primary='LeaderLine' />
       </ListItemButton>
     </Link>
+    <Link href='/datetime' passHref>
+      <ListItemButton>
+        <ListItemIcon>
+          <LineAxisIcon />
+        </ListItemIcon>
+        <ListItemText primary='datetime' />
+      </ListItemButton>
+    </Link>
   </React.Fragment>
 );
 
