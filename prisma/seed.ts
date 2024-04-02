@@ -101,6 +101,28 @@ async function main() {
     },
   });
   console.log({ tc1, tc2, tc3 });
+
+  const header1 = await prisma.header.upsert({
+    where: { id: 'header_test1' },
+    update: {},
+    create: {
+      header_attr1: 'header_attr1',
+      header_attr2: 'header_attr2',
+      header_attr3: 'header_attr3',
+      header_attr4: 'header_attr4',
+    },
+  });
+  for (let i = 0; i < 100; i++) {
+    const item1 = await prisma.item.upsert({
+      where: { id: 'item_test_' + i },
+      update: {},
+      create: {
+        items_attr1: 'items_attr1_' + i,
+        items_attr2: 'items_attr2_' + i,
+        headerId: header1.id,
+      }
+    });
+  }
 }
 
 main()
