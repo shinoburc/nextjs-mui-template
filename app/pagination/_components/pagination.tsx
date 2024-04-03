@@ -17,6 +17,7 @@ export default function Pagination(props: PaginationProps) {
   const pathname = usePathname();
   const { replace } = useRouter();
  
+  // ページ数を URL クエリパラメーターに追加する。
   function handlePage(page: number) {
     const params = new URLSearchParams(searchParams);
     if (page) {
@@ -27,6 +28,7 @@ export default function Pagination(props: PaginationProps) {
     replace(`${pathname}?${params.toString()}`);
   }
 
+  // 1ページあたりの表示数を URL クエリパラメーターに追加する。
   function handlePerPage(perPage: number) {
     const params = new URLSearchParams(searchParams);
     if (perPage) {
@@ -39,7 +41,7 @@ export default function Pagination(props: PaginationProps) {
 
   return (
     <>
-      {/* mui TablePagination を使用して items を表示 */}
+      {/* mui TablePagination を使用して Pagination を表示 */}
       <TablePagination
         component="div"
         count={count}

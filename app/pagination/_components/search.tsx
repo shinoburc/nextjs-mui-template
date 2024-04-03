@@ -13,6 +13,7 @@ export default function Search(props: SearchProps) {
     const pathname = usePathname();
     const { replace } = useRouter();
  
+    // 検索フォームの入力値を URL クエリパラメーターに追加する。
     function handleSearch(query: string) {
         const params = new URLSearchParams(searchParams);
         if (query) {

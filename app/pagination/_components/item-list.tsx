@@ -12,16 +12,20 @@ type ItemListProps = {
 
 export default async function ItemList(props: ItemListProps) {
   const { query, page, perPage } = props;
-  //const skip = (page - 1) * perPage;
+  // 現在のページ(page)数と1ページあたりの表示(perPage)数から、skip と take を計算する。
   const skip = page * perPage;
   const take = perPage;
 
+  // Pagination コンポーネントで使用するため、Item の総数を取得する。
   const count = await ItemRepository.countByQuery(query);
+  // Item の一覧を取得する。
   const items = await ItemRepository.search(query, skip, take);
 
   return (
     <>
+      {/* Pagination コンポーネントを表示 */}
       <Pagination count={count} />
+      {/* items を表示 */}
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
