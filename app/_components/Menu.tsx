@@ -105,6 +105,14 @@ export const mainMenu = (
         <ListItemText primary='LeaderLine' />
       </ListItemButton>
     </Link>
+    <Link href='/pagination' passHref>
+      <ListItemButton>
+        <ListItemIcon>
+          <LineAxisIcon />
+        </ListItemIcon>
+        <ListItemText primary='Pagination' />
+      </ListItemButton>
+    </Link>
   </React.Fragment>
 );
 
