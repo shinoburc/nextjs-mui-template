@@ -1,7 +1,7 @@
 'use client';
 
 import { Button, Dialog } from '@mui/material';
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import useSWRInfinite from 'swr/infinite'
 
 import { fetcher }  from '@/app/_utils/fetcher';
@@ -14,13 +14,11 @@ type InfinityScrollPageProps = {
 
 export function InfinityScrollListDialog(props: InfinityScrollPageProps) {
   const { open, onClose } = props;
-  //const [items, setItems] = useState(Array.from({ length: 20 })); // 初期アイテム
   const [loading, setLoading] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const loader = useRef(null);
 
   const getKey = (pageIndex: number, previousPageData: Item[][]) => {
-    console.log("getKey", pageIndex);
     const take = 20;
     const skip = pageIndex * take;
     const params = new URLSearchParams();
@@ -52,7 +50,7 @@ export function InfinityScrollListDialog(props: InfinityScrollPageProps) {
       entries.forEach((entry) => {
         if(entry.isIntersecting) {
           setLoading(true);
-          // 20件追加
+          // 次のページを読み込む
           setSize((prevSize) => prevSize + 1);
           setLoading(false);
         }
