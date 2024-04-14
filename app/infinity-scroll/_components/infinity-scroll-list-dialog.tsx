@@ -28,13 +28,13 @@ export function InfinityScrollListDialog(props: InfinityScrollPageProps) {
     return `/api/item/pagination?${params.toString()}`
   }
 
-  const swrInfiniteoptions = {
+  const swrInfiniteOptions = {
       revalidateIfStale: false, // キャッシュがあっても再検証しない
-      revalidateOnFocus: false, // windowをフォーカスすると再検証しない
+      revalidateOnFocus: false, // フォーカス時の再検証を行わない 
       revalidateFirstPage: false, // 2ページ目以降を読み込むとき毎回1ページ目を再検証しない
   }
 
-  const { data: items, size, setSize } = useSWRInfinite<Item[]>(getKey, fetcher, swrInfiniteoptions)
+  const { data: items, size, setSize } = useSWRInfinite<Item[]>(getKey, fetcher, swrInfiniteOptions)
 
   useEffect(() => { // 引数にnodeを受け取る
     if (!isDialogOpen) return;  // dialogが開いていなければリターンして処理終了
