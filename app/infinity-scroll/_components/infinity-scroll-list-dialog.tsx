@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Dialog } from '@mui/material';
+import { Button, Dialog, Tab, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material';
 import React, { useState, useEffect, useRef } from 'react';
 import useSWRInfinite from 'swr/infinite'
 
@@ -88,15 +88,39 @@ export function InfinityScrollListDialog(props: InfinityScrollPageProps) {
         }}
       >
         <Button variant='outlined' onClick={onClose}>Close</Button>
-        <p>Infinity Scroll Dialog</p>
-        <ul>
-          {items.flat().map((item, index) => (
-            <li key={index}>{item.items_attr1}</li>
-          ))}
-        </ul>
-        {loading && <p>ロード中...</p>}
-        {/* この要素がビューポートに入ると更にアイテムをロード */}
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>items_attr1</TableCell>
+                <TableCell>items_attr2</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+            {items.flat().map((item, index) => (
+              <TableRow key={index}>
+                <TableCell>{item.items_attr1}</TableCell>
+                <TableCell>{item.items_attr2}</TableCell>
+              </TableRow>
+            ))}
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                {loading && <TableCell colSpan={2}>ロード中...</TableCell>}
+              </TableRow>
+            </TableFooter>
+          </Table>
+          {/* この要素がビューポートに入る(ブラウザ上に表示される)と追加のアイテムをロードする */}
+          <div ref={loader} style={{ height: "100px", margin: "10px 0" }}></div>
+          {loading && <p>ロード中...</p>}
+        </TableContainer>
+
+        {/* 以下の位置だとビューポートに入らず反応しなかった */}
+        {/* この要素がビューポートに入る(ブラウザ上に表示される)と追加のアイテムをロードする */}
+        {/*
         <div ref={loader} style={{ height: "100px", margin: "10px 0" }}></div>
+        {loading && <p>ロード中...</p>}
+        */}
       </Dialog>
     </>
   );
