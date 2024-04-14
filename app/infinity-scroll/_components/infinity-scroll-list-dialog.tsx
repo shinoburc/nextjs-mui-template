@@ -2,6 +2,10 @@
 
 import { Button, Dialog } from '@mui/material';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import useSWRInfinite from 'swr/infinite'
+
+import { fetcher }  from '@/app/_utils/fetcher';
+import type { Item } from '@/app/_repositories/Item';
 
 type InfinityScrollPageProps = {
   open: boolean;
@@ -9,12 +13,27 @@ type InfinityScrollPageProps = {
 };
 
 export function InfinityScrollListDialog(props: InfinityScrollPageProps) {
-  const [items, setItems] = useState(Array.from({ length: 20 })); // 初期アイテム
+  const { open, onClose } = props;
+  //const [items, setItems] = useState(Array.from({ length: 20 })); // 初期アイテム
   const [loading, setLoading] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const loader = useRef(null);
 
-  const dialogDisplayCallback = useCallback((node: any) => { // 引数にnodeを受け取る
-    if (!node) return;  // nodeがnullの場合はリターンして処理終了
+  const getKey = (pageIndex: number, previousPageData: Item[][]) => {
+    console.log('getKey', pageIndex)
+    const take = 20;
+    const skip = pageIndex * take;
+    const params = new URLSearchParams();
+
+    params.set('skip', skip.toString());
+    params.set('take', take.toString());
+    return `/api/item/pagination?${params.toString()}`
+  }
+
+  const { data: items, size, setSize } = useSWRInfinite<Item[]>(getKey, fetcher)
+
+  useEffect(() => { // 引数にnodeを受け取る
+    if (!isDialogOpen) return;  // dialogが開いていなければリターンして処理終了
 
     const options = {
       root: null, // ビューポートをルートとする
@@ -23,36 +42,52 @@ export function InfinityScrollListDialog(props: InfinityScrollPageProps) {
     };
 
     const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && !loading) {
-        setLoading(true);
-        setTimeout(() => { // デモのために遅延を模擬
-          setItems((prev) => [...prev, ...Array.from({ length: 20 })]);
+      // ローディング中であれば何もしない
+      entries.forEach((entry) => {
+        if(entry.isIntersecting) {
+          setLoading(true);
+          // 20件追加
+          setSize((prevSize) => prevSize + 1);
           setLoading(false);
-        }, 1000);
-      }
+        }
+      });
     }, options);
 
     if (loader.current) {
-      console.log("loader.current", loader.current);
+      // ローダー要素を監視対象に追加
       observer.observe(loader.current);
     }
 
-    // クリーンアップ関数
+    // コンポーネントがアンマウントされたときに監視を解除
     return () => observer.disconnect();
-//},[props.open]);
-}, []);
+  }, [isDialogOpen]);
 
+  if (!items) return;
 
   return (
     <>
       {/* reference: https://www.miracleave.co.jp/contents/2095/post-2095/ */}
-      {/* ref にコールバック関数を渡すことで、Dialog が表示されるときにコールバック関数を実行してくれる */}
-      <Dialog open={props.open} onClose={props.onClose} maxWidth='xl' ref={dialogDisplayCallback}>
-        <Button variant='outlined' onClick={props.onClose}>Close</Button>
+      {/* ref にコールバック関数を渡すことで、Dialog の表示・非表示が切り替わるときにコールバック関数を実行してくれる */}
+      <Dialog
+        open={open}
+        onClose={onClose}
+        maxWidth='xl'
+        ref={(node) => {
+          // ダイアログが開いたときに、ダイアログ要素(node)が渡される
+          if(node) {
+            // ダイアログが開いたとき
+            setIsDialogOpen(true);
+          } else {
+            // ダイアログが閉じたとき
+            setIsDialogOpen(false);
+          }
+        }}
+      >
+        <Button variant='outlined' onClick={onClose}>Close</Button>
         <p>Infinity Scroll Dialog</p>
         <ul>
-          {items.map((item, index) => (
-            <li key={index}>アイテム {index + 1}</li>
+          {items.flat().map((item, index) => (
+            <li key={index}>{item.items_attr1}</li>
           ))}
         </ul>
         {loading && <p>ロード中...</p>}
