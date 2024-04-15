@@ -34,7 +34,7 @@ export function InfinityScrollList(props: InfinityScrollListProps) {
 
   const { data: items, size, setSize } = useSWRInfinite<Item[]>(getKey, fetcher, swrInfiniteOptions)
 
-  useEffect(() => { // 引数にnodeを受け取る
+  useEffect(() => {
     const options = {
       root: null, // ビューポートをルートとする
       rootMargin: "20px", // ビューポートの下端から20pxの位置を閾値とする
@@ -44,7 +44,7 @@ export function InfinityScrollList(props: InfinityScrollListProps) {
     const observer = new IntersectionObserver((entries) => {
       // ローディング中であれば何もしない
       entries.forEach((entry) => {
-        if(entry.isIntersecting) {
+        if(entry.isIntersecting && !loading) {
           setLoading(true);
           // 次のページを読み込む
           setSize((prevSize) => prevSize + 1);
@@ -60,9 +60,7 @@ export function InfinityScrollList(props: InfinityScrollListProps) {
 
     // コンポーネントがアンマウントされたときに監視を解除
     return () => observer.disconnect();
-  }, []);
-
-  if (!items) return;
+  }, [items]); // itemsが変更されたときに再実行
 
   return (
     <>
@@ -76,7 +74,7 @@ export function InfinityScrollList(props: InfinityScrollListProps) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {items.flat().map((item, index) => (
+            {items?.flat().map((item, index) => (
               <TableRow key={index}>
                 <TableCell>
                   <Button onClick={() => {
@@ -94,9 +92,9 @@ export function InfinityScrollList(props: InfinityScrollListProps) {
             </TableRow>
           </TableFooter>
         </Table>
+        {/* items が存在するときにリストの最下部を表す div を表示 */}
         {/* この要素がビューポートに入る(ブラウザ上に表示される)と追加のアイテムをロードする */}
-        <div ref={loader} style={{ height: "100px", margin: "10px 0" }}></div>
-        {loading && <p>ロード中...</p>}
+        {items && <div ref={loader} style={{ height: "100px", margin: "10px 0" }}></div>}
       </TableContainer>
 
       {/* 以下の位置だとビューポートに入らず反応しなかった */}
