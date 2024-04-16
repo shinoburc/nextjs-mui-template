@@ -17,9 +17,11 @@ export function InfinityScrollListSearch(props: InfinityScrollListSearchProps) {
   const [query, setQuery] = useState('');
   const [editingQuery, setEditingQuery] = useState('');
   const loader = useRef(null);
+  // 1ページあたりの表示数
+  const perPage = 20;
 
   const getKey = (pageIndex: number, previousPageData: Item[][]) => {
-    const take = 20;
+    const take = perPage;
     const skip = pageIndex * take;
     const params = new URLSearchParams();
 
@@ -36,8 +38,6 @@ export function InfinityScrollListSearch(props: InfinityScrollListSearchProps) {
   }
 
   const { data: items, size, setSize, error } = useSWRInfinite<Item[]>(getKey, fetcher, swrInfiniteOptions)
-
-  console.log(error);
 
   useEffect(() => {
     const options = {
@@ -97,12 +97,17 @@ export function InfinityScrollListSearch(props: InfinityScrollListSearchProps) {
           <TableFooter>
             <TableRow>
               {loading && <TableCell colSpan={2}>ロード中...</TableCell>}
+              <TableCell colSpan={2}>{items ? items[size - 1]?.length : 'null'}</TableCell>
             </TableRow>
           </TableFooter>
         </Table>
-        {/* items が存在するときにリストの最下部を表す div を表示 */}
-        {/* この要素がビューポートに入る(ブラウザ上に表示される)と追加のアイテムをロードする */}
-        {items && <div ref={loader} style={{ height: "100px", margin: "10px 0" }}>loader</div>}
+        {/* 
+          * 1. items: items が存在するとき、
+          * 2. items[size - 1]?.length === perPage: 前回取得分の items が perPage と等しい(次のページが存在する)とき、
+          * リストの最下部を表す div 要素を挿入する。
+          * この div 要素がビューポートに入る(ブラウザ上に表示される)と追加のアイテムをロードする。
+          */}
+        {items && items[size - 1]?.length === perPage && <div ref={loader} style={{ height: "100px", margin: "10px 0" }}>loader</div>}
       </TableContainer>
 
       {/* 以下の位置だとビューポートに入らず反応しなかった */}
