@@ -4,6 +4,8 @@ import type { NextRequest } from 'next/server';
 import type { User } from '@/app/_repositories/User';
 import { UserRepository } from '@/app/_repositories/User';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
   const users = await UserRepository.findMany();
   return NextResponse.json(users);
