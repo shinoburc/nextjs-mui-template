@@ -15,6 +15,7 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'  # プロジェクトに合わせた Node.js のバージョンを指定
+        cache: 'npm'
     - name: Install dependencies
       run: npm install  # 依存関係のインストール
     - name: Run build
