@@ -4,7 +4,6 @@ on:
   pull_request:
     branches:
       - main  # メインブランチへのプルリクエストに対してビルドを実行します。必要に応じてブランチ名を変更してください。
-
 jobs:
   build:
     runs-on: ubuntu-latest  # ビルドを実行する環境。他にも 'windows-latest', 'macos-latest' などが使用可能です。
@@ -12,14 +11,11 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2  # リポジトリのコードをチェックアウトするためのアクション
-
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '20'  # プロジェクトに合わせた Node.js のバージョンを指定
-
     - name: Install dependencies
       run: npm install  # 依存関係のインストール
-
     - name: Run build
       run: npm run build  # ビルドコマンドを実行
