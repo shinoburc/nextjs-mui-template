@@ -4,6 +4,8 @@ import type { NextRequest } from 'next/server';
 import { HeaderRepository } from '@/app/_repositories/Header';
 import type { HeaderItemsFormData } from '@/app/_formSchema/header_items_schema';
 
+export const dynamic = 'force-dynamic';
+
 export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const header_items: HeaderItemsFormData = await request.json();
