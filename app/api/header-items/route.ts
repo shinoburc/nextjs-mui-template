@@ -4,6 +4,8 @@ import { HeaderRepository } from '@/app/_repositories/Header';
 
 import type { HeaderItemsFormData } from '@/app/_formSchema/header_items_schema';
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(request: NextRequest) {
   try {
     const header_items: HeaderItemsFormData = await request.json();
