@@ -5,6 +5,8 @@ import Link from 'next/link';
 import ThanksCardList from './_components/thanks_card/list';
 import { ThanksCardRepository } from './_repositories/ThanksCard';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   const thanks_cards = await ThanksCardRepository.findMany();
   return (
