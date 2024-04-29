@@ -52,7 +52,6 @@ export default function FileUploader() {
               File Select
               <FileUploadIcon />
             </label>
-            {/* HTML 標準のファイル選択UIを非表示にする */}
             <input
               id='file-input'
               //style={{ visibility: 'hidden' }}
