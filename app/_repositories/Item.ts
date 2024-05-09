@@ -24,7 +24,7 @@ export namespace ItemRepository {
    * @param take? 読み込む件数。省略時は全件取得。
    * @returns 
    */
-  export async function search(query: string, skip?: number, take?: number) {
+  export async function search(query?: string, skip?: number, take?: number) {
     const where: Prisma.ItemWhereInput = query ? {
       OR: [
         {

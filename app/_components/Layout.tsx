@@ -197,8 +197,8 @@ export default function Layout({ children }: LayoutProps) {
                     p: 2,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 600,
-                    overflow: 'auto', // for scrollable
+                    //height: 600,
+                    //overflow: 'auto', // for scrollable
                   }}
                 >
                   <LocalizationProvider

@@ -121,6 +121,14 @@ export const mainMenu = (
         <ListItemText primary='Pagination' />
       </ListItemButton>
     </Link>
+    <Link href='/infinity-scroll' passHref>
+      <ListItemButton>
+        <ListItemIcon>
+          <LineAxisIcon />
+        </ListItemIcon>
+        <ListItemText primary='InfinityScroll' />
+      </ListItemButton>
+    </Link>
   </React.Fragment>
 );
 
