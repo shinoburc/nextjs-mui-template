@@ -73,6 +73,14 @@ export const mainMenu = (
         <ListItemText primary='file-uploader' />
       </ListItemButton>
     </Link>
+    <Link href='/file-uploader-api' passHref>
+      <ListItemButton>
+        <ListItemIcon>
+          <LayersIcon />
+        </ListItemIcon>
+        <ListItemText primary='file-uploader-api' />
+      </ListItemButton>
+    </Link>
     <Link href='/camera-photo-uploader' passHref>
       <ListItemButton>
         <ListItemIcon>
